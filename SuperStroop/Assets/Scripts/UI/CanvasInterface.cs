@@ -20,7 +20,16 @@ public class CanvasInterface : MonoBehaviour
             tweenController.BeginStage(1).onComplete.AddListener(() => 
             {
                 Hide();
-                target.tweenController.BeginStage(0).onComplete.AddListener(target.Show);
+                if (target.tweenController)
+                {
+                    target.tweenController.BeginStage(0).onComplete.AddListener(target.Show);
+                }
+                else
+                {
+                    target.Show();
+                }
+                // Set the current interface to be the target
+                InterfaceManager.current = target;
             });
         }
         else
@@ -29,18 +38,28 @@ public class CanvasInterface : MonoBehaviour
             Hide();
             // Show the target canvas
             target.Show();
+            // Set the current interface to be the target
+            InterfaceManager.current = target;
         }
     }
     public void Show()
     {
+        // First enable the object if it ins't already
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
         // Enable canvas
-        if (!canvas.enabled)
-            canvas.enabled = true;
+        if (canvas && !canvas.enabled)
+        {
+            canvas.enabled = true; 
+        }
     }
     public void Hide()
     {
         // Disable canvas
-        if (canvas.enabled)
+        if (canvas && canvas.enabled)
             canvas.enabled = false;
+        // If there is no canvas, disable the object itself instead
+        else if (gameObject.activeSelf)
+            gameObject.SetActive(false);
     }
 }

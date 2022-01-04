@@ -19,11 +19,11 @@ public class TweenController : MonoBehaviour
     }
 
     // UI Components
-    private Canvas canvas;
-    private CanvasGroup canvasGroup;
-    private RectTransform rect;
-    private Image image;
-    private int currentStage;
+    Canvas canvas;
+    CanvasGroup canvasGroup;
+    RectTransform rect;
+    Image image;
+    int currentStage;
 
     // Variables
     [Tooltip("Begin tweening immediately when entering play mode")]
